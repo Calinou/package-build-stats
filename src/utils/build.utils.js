@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const MemoryFS = require('memory-fs')
 const isValidNPMName = require('is-valid-npm-name')
 const { gzipSync } = require('zlib')
+const brotli = require('brotli')
 const fs = require('fs')
 
 const getDependencySizes = require('../getDependencySizeTree')
@@ -188,6 +189,7 @@ const BuildUtils = {
         }
 
         const gzip = gzipSync(bundleContents, {}).length
+        const brotli = brotli.compress(bundleContents).length
         const [fullName, entryName, extension] = asset.name.match(
           /(.+?)\.bundle\.(.+)$/
         )
@@ -196,6 +198,7 @@ const BuildUtils = {
           type: extension,
           size: asset.size,
           gzip,
+          brotli,
           parse: parseTimes,
         }
       }

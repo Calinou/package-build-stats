@@ -74,6 +74,7 @@ async function getPackageStats(packageString, options = {}) {
       ...builtDetails,
       size: mainAsset.size,
       gzip: mainAsset.gzip,
+      brotli: mainAsset.brotli,
       parse: mainAsset.parse,
     }
   } finally {
